@@ -95,7 +95,7 @@ jobs:
             docker stop newapp-container || true
             docker rm newapp-container || true
 
-            echo "Starting new container..."
+            echo "Starting new container on ports 80 and 3000..."
             docker run -d -p 80:3000 -p 3000:3000 --name newapp-container --restart always ${{ secrets.DOCKER_USERNAME }}/newapp:latest
 
             echo "Waiting for container..."
