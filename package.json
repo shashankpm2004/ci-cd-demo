@@ -1,0 +1,16 @@
+{
+  "name": "automated-cicd-pipeline",
+  "version": "1.0.0",
+  "description": "Automated CI/CD Pipeline with AWS and GitHub Actions - MCA Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "bash scripts/test.sh"
+  },
+  "author": "Shashank P M",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
