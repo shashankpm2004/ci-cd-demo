@@ -3,85 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automated CI/CD Pipeline | AWS & GitHub Actions</title>
+  <title>CI/CD Pipeline</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="badge-live">
-        <span class="pulse-dot"></span> System Live & Healthy
-      </div>
-      <h1>Automated CI/CD Pipeline</h1>
-      <p class="subtitle">Continuous Integration & Continuous Deployment with AWS and GitHub Actions</p>
-      <div class="greeting-tag">Hello, Node.js!</div>
+  <main class="page">
+    <header>
+      <h1>CI/CD Pipeline</h1>
+      <p class="desc">Automated build and deployment with AWS EC2 and GitHub Actions.</p>
+      <p class="greeting">Hello, Node.js!</p>
     </header>
 
-    <main class="content-grid">
-      <!-- Project Information Card -->
-      <section class="card">
-        <h2>🎓 Project Synopsis Information</h2>
-        <table class="info-table">
-          <tr>
-            <td><strong>Student:</strong></td>
-            <td>Shashank P M</td>
-          </tr>
-          <tr>
-            <td><strong>USN:</strong></td>
-            <td>4JN25MC089</td>
-          </tr>
-          <tr>
-            <td><strong>Department:</strong></td>
-            <td>Master of Computer Applications (MCA)</td>
-          </tr>
-          <tr>
-            <td><strong>Institution:</strong></td>
-            <td>Jawaharlal Nehru New College of Engineering (JNNCE), Shivamogga</td>
-          </tr>
-          <tr>
-            <td><strong>Affiliation:</strong></td>
-            <td>Visvesvaraya Technological University (VTU), Belagavi</td>
-          </tr>
-          <tr>
-            <td><strong>Internal Guide:</strong></td>
-            <td>Mr. Prashant Ankalkoti (Assistant Professor)</td>
-          </tr>
-        </table>
-      </section>
+    <hr>
 
-      <!-- Architecture Pipeline Card -->
-      <section class="card">
-        <h2>⚡ Pipeline Architecture Stages</h2>
-        <div class="pipeline-steps">
-          <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-info">
-              <h3>Stage 1: Testing (CI)</h3>
-              <p>Automated fail-fast test executes in GitHub Actions. Validates application startup and health response.</p>
-            </div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-info">
-              <h3>Stage 2: Build & Tag (CD)</h3>
-              <p>Builds Docker image, tags with <code>latest</code> and commit SHA, and publishes securely to DockerHub.</p>
-            </div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">3</div>
-            <div class="step-info">
-              <h3>Stage 3: Deploy (CD)</h3>
-              <p>Connects via SSH to AWS EC2, replaces old container, runs health check, and prunes unused Docker images.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    <section>
+      <h2>Project Details</h2>
+      <dl class="details-list">
+        <dt>Project</dt>
+        <dd>Automated CI/CD Pipeline with AWS and GitHub Actions</dd>
 
-    <footer class="footer">
-      <p>Deployed automatically on <strong>AWS EC2</strong> via <strong>GitHub Actions</strong></p>
-      <p class="server-status">Status Check: <a href="/health" target="_blank">/health endpoint</a></p>
+        <dt>Student</dt>
+        <dd>Shashank P M (4JN25MC089)</dd>
+
+        <dt>Department</dt>
+        <dd>Master of Computer Applications</dd>
+
+        <dt>College</dt>
+        <dd>Jawaharlal Nehru New College of Engineering, Shivamogga</dd>
+
+        <dt>University</dt>
+        <dd>Visvesvaraya Technological University</dd>
+
+        <dt>Guide</dt>
+        <dd>Mr. Prashant Ankalkoti, Assistant Professor</dd>
+      </dl>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Deployment Pipeline</h2>
+      <ol class="pipeline-list">
+        <li><strong>Test</strong> &mdash; Automated fail-fast HTTP endpoint validation</li>
+        <li><strong>Build</strong> &mdash; Docker image tagged with commit SHA and pushed to DockerHub</li>
+        <li><strong>Deploy</strong> &mdash; Remote SSH deployment on AWS EC2 Linux server</li>
+      </ol>
+    </section>
+
+    <hr>
+
+    <footer>
+      <p>System status: <span class="status-live">operational</span> &bull; <a href="/health">/health</a></p>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
