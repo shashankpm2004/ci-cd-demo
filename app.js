@@ -21,14 +21,49 @@ const MIME_TYPES = {
 const server = http.createServer((req, res) => {
   const urlPath = req.url.split('?')[0];
 
-  // 1. Health check endpoint for CI/CD post-deployment verification
+  // 1. Health check endpoint: Serves HTML in browsers, JSON for automated monitors
   if (urlPath === '/health') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({
-      status: 'UP',
-      port: PORT,
-      timestamp: new Date().toISOString()
-    }));
+    const isJsonRequested = req.url.includes('format=json') ||
+      (req.headers.accept && !req.headers.accept.includes('text/html'));
+
+    if (isJsonRequested) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({
+        status: 'UP',
+        port: PORT,
+        uptime_seconds: Math.floor(process.uptime()),
+        memory_mb: Math.round(process.memoryUsage().rss / (1024 * 1024)),
+        node_version: process.version,
+        timestamp: new Date().toISOString()
+      }, null, 2));
+    }
+
+    // Serve minimalist HTML health page for browser requests
+    const healthTemplatePath = path.join(PUBLIC_DIR, 'health.html');
+    fs.readFile(healthTemplatePath, 'utf8', (err, html) => {
+      if (err) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ status: 'UP', timestamp: new Date().toISOString() }));
+      }
+
+      const uptimeSec = Math.floor(process.uptime());
+      const hours = Math.floor(uptimeSec / 3600);
+      const minutes = Math.floor((uptimeSec % 3600) / 60);
+      const seconds = uptimeSec % 60;
+      const uptimeStr = `${hours}h ${minutes}m ${seconds}s (${uptimeSec}s)`;
+      const memoryMb = Math.round(process.memoryUsage().rss / (1024 * 1024));
+
+      const rendered = html
+        .replace('{{UPTIME}}', uptimeStr)
+        .replace('{{NODE_VERSION}}', process.version)
+        .replace('{{MEMORY_MB}}', String(memoryMb))
+        .replace('{{PORT}}', String(PORT))
+        .replace('{{TIMESTAMP}}', new Date().toISOString());
+
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+      res.end(rendered);
+    });
+    return;
   }
 
   // 2. Resolve requested file path (default to index.html for root '/')
@@ -41,11 +76,10 @@ const server = http.createServer((req, res) => {
     return res.end('403 Forbidden\n');
   }
 
-  // Read file dynamically from disk on each request (hot-reload friendly for manual HTML/CSS edits)
+  // Read file dynamically from disk on each request (hot-reload friendly)
   fs.readFile(filePath, (err, data) => {
     if (err) {
       if (urlPath === '/' || urlPath === '/index.html') {
-        // Fallback plain text response if index.html is missing
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         return res.end('Hello, Node.js!\n');
       }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Health</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>System Health</h1>
+      <p class="desc">Real-time container diagnostics and runtime metrics.</p>
+      <p class="greeting">Status: UP (200 OK)</p>
+    </header>
+
+    <hr>
+
+    <section>
+      <h2>Metrics</h2>
+      <dl class="details-list">
+        <dt>Status</dt>
+        <dd><span class="status-live">operational</span></dd>
+
+        <dt>Server</dt>
+        <dd>AWS EC2 Linux (Docker)</dd>
+
+        <dt>Uptime</dt>
+        <dd>{{UPTIME}}</dd>
+
+        <dt>Runtime</dt>
+        <dd>Node.js {{NODE_VERSION}}</dd>
+
+        <dt>Memory</dt>
+        <dd>{{MEMORY_MB}} MB RSS</dd>
+
+        <dt>Port</dt>
+        <dd>{{PORT}}</dd>
+
+        <dt>Timestamp</dt>
+        <dd>{{TIMESTAMP}}</dd>
+      </dl>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>JSON API</h2>
+      <p class="desc">Automated probes and CI health checks can query:</p>
+      <p><a href="/health?format=json"><code>GET /health?format=json</code></a></p>
+    </section>
+
+    <hr>
+
+    <footer>
+      <p><a href="/">&larr; Return to main page</a></p>
+    </footer>
+  </main>
+</body>
+</html>
+
